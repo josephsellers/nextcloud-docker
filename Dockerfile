@@ -9,4 +9,4 @@ RUN set -ex; \
     ; \
     rm -rf /var/lib/apt/lists/*
 
-ENV NEXTCLOUD_UPDATE=1
+ENV NEXTCLOUD_UPDATE=1.1
