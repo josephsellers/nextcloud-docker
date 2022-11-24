@@ -4,8 +4,8 @@ FROM nextcloud:apache
 RUN set -ex; \
     apt-get update; \
     apt-get install -y ffmpeg; \
+    rm -rf /var/lib/apt/lists/*
 
 CMD ["apache2-foreground"]
-    rm -rf /var/lib/apt/lists/*
 
 ENV NEXTCLOUD_UPDATE=1
