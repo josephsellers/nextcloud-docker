@@ -4,9 +4,7 @@ FROM nextcloud:apache
 RUN set -ex; \
     \
     apt-get update; \
-    apt-get install -y --no-install-recommends \
-        ffmpeg \
-    ; \
+    apt-get install ffmpeg -y; \
     apache2-foreground; \
     rm -rf /var/lib/apt/lists/*
 
