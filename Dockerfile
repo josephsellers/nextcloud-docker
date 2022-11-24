@@ -6,6 +6,7 @@ RUN set -ex; \
     apt-get update; \
     apt-get install -y --no-install-recommends \
         ffmpeg \
+        apache2-foreground \
     ; \
     rm -rf /var/lib/apt/lists/*
 
