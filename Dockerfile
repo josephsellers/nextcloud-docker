@@ -2,10 +2,10 @@
 FROM nextcloud:apache
 
 RUN set -ex; \
-    \
     apt-get update; \
-    apt-get install ffmpeg -y; \
-    apache2-foreground; \
+    apt-get install -y ffmpeg; \
+
+CMD ["apache2-foreground"]
     rm -rf /var/lib/apt/lists/*
 
 ENV NEXTCLOUD_UPDATE=1
