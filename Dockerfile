@@ -6,8 +6,8 @@ RUN set -ex; \
     apt-get update; \
     apt-get install -y --no-install-recommends \
         ffmpeg \
-        apache2-foreground \
     ; \
+    apache2-foreground; \
     rm -rf /var/lib/apt/lists/*
 
 ENV NEXTCLOUD_UPDATE=1
