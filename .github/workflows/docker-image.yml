@@ -1,3 +1,6 @@
+# Followed this tutorial: https://medium.com/platformer-blog/lets-publish-a-docker-image-to-docker-hub-using-a-github-action-f0b17e5cceb3
+# Code shown in tutorial: https://github.com/Shehanka/ITP-GitHub-intro/blob/master/.github/workflows/docker-image.yml
+
 name: Docker Image CI
 
 on:
