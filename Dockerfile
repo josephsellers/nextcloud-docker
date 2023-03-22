@@ -1,5 +1,5 @@
 # Copied from here: https://github.com/nextcloud/docker/blob/master/25/apache/Dockerfile
-FROM nextcloud:apache
+FROM lscr.io/linuxserver/nextcloud:latest
 
 RUN set -ex; \
     apt-get update; \
