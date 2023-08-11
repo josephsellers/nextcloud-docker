@@ -8,4 +8,4 @@ RUN set -ex; \
 
 CMD ["apache2-foreground"]
 
-ENV NEXTCLOUD_UPDATE=13
+ENV NEXTCLOUD_UPDATE=14
