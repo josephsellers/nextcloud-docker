@@ -1,5 +1,5 @@
 # Copied from here: https://memories.gallery/hw-transcoding/#docker-installations
-FROM nextcloud:latest
+FROM nextcloud:apache
 
 RUN apt-get update && \
     apt-get install -y lsb-release && \
