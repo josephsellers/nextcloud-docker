@@ -4,4 +4,4 @@ GID=`stat -c "%g" /dev/dri/renderD128`
 GROUP=`getent group $GID | cut -d: -f1`
 usermod -aG $GROUP www-data
 
-php
+apache2-foreground
