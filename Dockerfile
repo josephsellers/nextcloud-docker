@@ -1,11 +1,15 @@
-# Copied from here: https://github.com/nextcloud/docker/blob/master/25/apache/Dockerfile
-FROM nextcloud:apache
+# Copied from here: https://memories.gallery/hw-transcoding/#docker-installations
+FROM nextcloud:latest
 
-RUN set -ex; \
-    apt-get update; \
-    apt-get install -y ffmpeg; \
+RUN apt-get update && \
+    apt-get install -y lsb-release && \
+    echo "deb http://ftp.debian.org/debian $(lsb_release -cs) non-free" >> \
+       /etc/apt/sources.list.d/intel-graphics.list && \
+    apt-get update && \
+    apt-get install -y intel-media-va-driver-non-free ffmpeg && \
     rm -rf /var/lib/apt/lists/*
 
-CMD ["apache2-foreground"]
+COPY start.sh /
+CMD /start.sh
 
-ENV NEXTCLOUD_UPDATE=15
+ENV NEXTCLOUD_UPDATE=16
