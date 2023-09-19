@@ -1,5 +1,5 @@
 # Copied from here: https://memories.gallery/hw-transcoding/#docker-installations
-FROM nextcloud:apache
+FROM nextcloud:27.1-apache
 
 RUN apt-get update && \
     apt-get install -y lsb-release && \
@@ -13,4 +13,4 @@ COPY start.sh /
 RUN chmod +x /start.sh 
 CMD /start.sh
 
-ENV NEXTCLOUD_UPDATE=21
+ENV NEXTCLOUD_UPDATE=22
