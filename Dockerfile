@@ -13,4 +13,4 @@ COPY start.sh /
 RUN chmod +x /start.sh 
 CMD /start.sh
 
-ENV NEXTCLOUD_UPDATE=24
+ENV NEXTCLOUD_UPDATE=25
