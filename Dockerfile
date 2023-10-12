@@ -1,53 +1,72 @@
+# Copied from here: https://github.com/samssausages/nextcloud-dlib-pdlib-ffmpeg/blob/main/dockerfile
+
+# Using the nextcloud:apache image as a base
 FROM nextcloud:latest
 
-# Copied from here: https://github.com/matiasdelellis/facerecognition/issues/693
-RUN sudo apt update \
-      && sudo apt install -y wget gnupg2 unzip
+# Set up environment variables or necessary settings
+ENV DEBIAN_FRONTEND=noninteractive
 
-    # install dlib
+# SSL install, needs setssl.sh in root of build folder.  (If you want to use your own ssl cert on Apache with no reverse proxy)
+# Config your domain and email if using this.
+# COPY setssl.sh /usr/local/bin/
+# RUN /usr/local/bin/setssl.sh subdomain.domain.com admin@domain.com
 
-    sudo apt-get install libx11-dev -y
-
-    git clone https://github.com/davisking/dlib.git
-    cd dlib/dlib
-    mkdir build
-    cd build
-    cmake -DBUILD_SHARED_LIBS=ON ..
-    make
-    sudo make install
-
-    # Install pdlib extension
-
-    wget https://github.com/goodspb/pdlib/archive/master.zip \
-      && mkdir -p /usr/src/php/ext/ \
-      && unzip -d /usr/src/php/ext/ master.zip \
-      && rm master.zip
-    docker-php-ext-install pdlib-master
-
-    sudo apt-get install -y libbz2-dev
+# Install dependencies for building dlib and pdlib
+RUN apt-get update && apt-get install -y \
+# Install ffmpeg
+    ffmpeg \
+# ffmpeg Libraries:    
+    # libavcodec-extra \
+    # libavdevice-dev \
+    # libavformat-dev \
+    # libavfilter-dev \
+    # libswresample-dev \
+    # libswscale-dev \
+    # libavutil-dev \
+# Used to clone & build
+    git \
+    wget \   
+    cmake \
+# Dependenies for pdlib    
+    libx11-dev \
+# OpenBLAS Library - optional
+    libopenblas-dev \
+    liblapack-dev \
+# For Facerecognition app to unzip models
+    bzip2 \
+    libbz2-dev && \
     docker-php-ext-install bz2
 
-    # Increase memory limits
-    echo memory_limit=1024M > /usr/local/etc/php/conf.d/memory-limit.ini
+# May or may not need    
+    # build-essential \
+    # pkg-config \
+    # libpostproc-dev \
 
-    # These last lines are just for testing the extension.. You can delete them.
-    wget https://github.com/matiasdelellis/pdlib-min-test-suite/archive/master.zip \
-      && unzip -d /tmp/ master.zip \
-      && rm master.zip
-    cd /tmp/pdlib-min-test-suite-master \
-        && make
+# Clone, build, and install Dlib as a shared library
+RUN git clone https://github.com/davisking/dlib.git \
+    && mkdir dlib/dlib/build \
+    && cd dlib/dlib/build \
+    && cmake -DBUILD_SHARED_LIBS=ON .. \
+    && make \
+    && make install
 
+# Clone, build, and install pdlib
+RUN git clone https://github.com/goodspb/pdlib.git \
+    && cd pdlib \
+    && phpize \
+    && ./configure --enable-debug \
+    # If the above command doesn't find dlib, uncomment the line below:
+    # && PKG_CONFIG_PATH=/usr/local/lib/pkgconfig ./configure --enable-debug \
+    && make \
+    && make install
 
-# Copied from here: https://memories.gallery/hw-transcoding/#docker-installations
-RUN apt-get update && \
-    apt-get install -y lsb-release && \
-    echo "deb http://ftp.debian.org/debian $(lsb_release -cs) non-free" >> \
-       /etc/apt/sources.list.d/intel-graphics.list && \
-    apt-get update && \
-    apt-get install -y intel-media-va-driver-non-free ffmpeg && \
-    rm -rf /var/lib/apt/lists/*
-COPY start.sh /
-RUN chmod +x /start.sh 
-CMD /start.sh
+# Append the necessary extension configuration to php.ini (for Docker that means add file to php/conf.d/)
+RUN echo "[pdlib]" >> /usr/local/etc/php/conf.d/docker-php-ext-pblib.ini \
+    && echo "extension=\"pdlib.so\"" >> /usr/local/etc/php/conf.d/docker-php-ext-pblib.ini
 
-ENV NEXTCLOUD_UPDATE=26
+# Clean up
+RUN apt-get autoremove -y \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /tmp/* \
+    && rm -rf /var/tmp/*
