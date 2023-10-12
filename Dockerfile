@@ -1,5 +1,7 @@
-# Copied from here: https://memories.gallery/hw-transcoding/#docker-installations
-FROM nextcloud:latest
+#
+# Use a temporary image to compile and test the libraries
+#
+FROM nextcloud:apache as builder
 
 # Build and install dlib on builder
 RUN apt-get update ; \
@@ -49,7 +51,7 @@ RUN git clone https://github.com/matiasdelellis/pdlib-min-test-suite.git \
 #
 # If pass the tests, we are able to create the final image.
 #
-FROM nextcloud:apache
+FROM nextcloud:latest
 
 # Install dependencies to image
 
