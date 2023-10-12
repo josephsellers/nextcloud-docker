@@ -8,7 +8,7 @@ RUN apt-get update && \
     echo "deb https://repo.delellis.com.ar bullseye bullseye" > /etc/apt/sources.list.d/20-pdlib.list \
       && wget -qO - https://repo.delellis.com.ar/repo.gpg.key | apt-key add - && \
     apt-get update && \
-    apt-get install -y intel-media-va-driver-non-free ffmpeg libdlib-dev && \
+    apt-get install -y intel-media-va-driver-non-free ffmpeg libdlib-dev libx11-dev && \
     rm -rf /var/lib/apt/lists/*
 RUN wget https://github.com/goodspb/pdlib/archive/master.zip \
   && mkdir -p /usr/src/php/ext/ \
