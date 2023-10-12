@@ -2,7 +2,7 @@
 FROM nextcloud:latest
 
 RUN apt update \
-  && apt install -y wget gnupg2 unzip
+  && apt install -y wget gnupg2 unzip libx11-dev
 
 # Enable repo and install dlib
 RUN echo "deb https://repo.delellis.com.ar bullseye bullseye" > /etc/apt/sources.list.d/20-pdlib.list \
