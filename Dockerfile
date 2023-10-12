@@ -2,7 +2,7 @@
 FROM nextcloud:latest
 
 RUN apt-get update && \
-    apt-get install -y lsb-release wget gnupg2 unzip && \
+    apt-get install -y lsb-release wget gnupg2 unzip libx11-dev && \
     echo "deb http://ftp.debian.org/debian $(lsb_release -cs) non-free" >> \
        /etc/apt/sources.list.d/intel-graphics.list && \
     echo "deb https://repo.delellis.com.ar bullseye bullseye" > /etc/apt/sources.list.d/20-pdlib.list \
