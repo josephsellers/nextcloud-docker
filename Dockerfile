@@ -11,4 +11,4 @@ RUN apt-get update && \
 COPY start.sh /
 CMD /start.sh
 
-ENV NEXTCLOUD_UPDATE=27
+ENV NEXTCLOUD_UPDATE=28
