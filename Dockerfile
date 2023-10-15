@@ -1,3 +1,4 @@
+# Copied from here: https://memories.gallery/hw-transcoding/#docker-installations
 FROM nextcloud:latest
 
 RUN apt-get update && \
@@ -9,7 +10,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 COPY start.sh /
-RUN chmod +x /script.sh /
+RUN chmod +x /start.sh 
 CMD /start.sh
 
 ENV NEXTCLOUD_UPDATE=28
