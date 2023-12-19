@@ -6,11 +6,11 @@ RUN apt-get update && \
     echo "deb http://ftp.debian.org/debian $(lsb_release -cs) non-free" >> \
        /etc/apt/sources.list.d/intel-graphics.list && \
     apt-get update && \
-    apt-get install -y intel-media-va-driver-non-free ffmpeg && \
+    apt-get install -y intel-media-va-driver-non-free ffmpeg php-bz2 && \
     rm -rf /var/lib/apt/lists/*
 
 COPY start.sh /
 RUN chmod +x /start.sh 
 CMD /start.sh
 
-ENV NEXTCLOUD_UPDATE=35
+ENV NEXTCLOUD_UPDATE=36
