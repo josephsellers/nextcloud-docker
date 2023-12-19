@@ -3,6 +3,7 @@ FROM nextcloud:latest
 
 RUN apt-get update && \
     add-apt-repository ppa:ondrej/php && \
+    apt-get update && \
     apt-get install -y php-bz2 && \    
     apt-get update && \
     apt-get install -y lsb-release && \
@@ -16,4 +17,4 @@ COPY start.sh /
 RUN chmod +x /start.sh 
 CMD /start.sh
 
-ENV NEXTCLOUD_UPDATE=40
+ENV NEXTCLOUD_UPDATE=41
