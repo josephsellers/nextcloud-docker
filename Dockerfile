@@ -1,7 +1,8 @@
 # Copied from here: https://memories.gallery/hw-transcoding/#docker-installations
 FROM nextcloud:latest
 
-RUN apt-get update && \
+RUN sudo add-apt-repository ppa:ondrej/php && \
+    apt-get update && \
     apt-get install -y lsb-release && \
     echo "deb http://ftp.debian.org/debian $(lsb_release -cs) non-free" >> \
        /etc/apt/sources.list.d/intel-graphics.list && \
@@ -13,4 +14,4 @@ COPY start.sh /
 RUN chmod +x /start.sh 
 CMD /start.sh
 
-ENV NEXTCLOUD_UPDATE=36
+ENV NEXTCLOUD_UPDATE=37
