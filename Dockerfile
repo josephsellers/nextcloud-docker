@@ -2,8 +2,6 @@
 FROM nextcloud:latest
 
 RUN apt-get update && \
-    apt-get install -y php-bz2 && \    
-    apt-get update && \
     apt-get install -y lsb-release && \
     echo "deb http://ftp.debian.org/debian $(lsb_release -cs) non-free" >> \
        /etc/apt/sources.list.d/intel-graphics.list && \
@@ -15,4 +13,4 @@ COPY start.sh /
 RUN chmod +x /start.sh 
 CMD /start.sh
 
-ENV NEXTCLOUD_UPDATE=42
+ENV NEXTCLOUD_UPDATE=43
